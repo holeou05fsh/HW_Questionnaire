@@ -37,11 +37,17 @@
                         <tr>
                             <td>開始 / 結束</td>
                             <td>
-                                <asp:TextBox CssClass="TextBox2" ID="txtStartTime" runat="server" TextMode="Date"></asp:TextBox></td>
+                                <asp:TextBox CssClass="TextBox2" ID="txtStartTime" runat="server" TextMode="Date"></asp:TextBox>
+                            </td>
                             <td>
                                 <asp:TextBox CssClass="TextBox3" ID="txtEndTime" runat="server" TextMode="Date"></asp:TextBox></td>
                             <td>
-                                <asp:Button CssClass="TextBox3" ID="btnSearch" runat="server" Text="搜尋" OnClick="btnSearch_Click" /></td>
+                                <asp:Button CssClass="TextBox3" ID="btnSearch" runat="server" Text="搜尋" OnClick="btnSearch_Click" />
+                            </td>
+                            <td>
+                                <asp:Literal ID="Literal2" runat="server"></asp:Literal>
+                                <asp:Label cssclass="msgseach" ID="Label1" runat="server"></asp:Label>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -171,6 +177,15 @@
 
                                     <div class="questioninput">
                                         <table>
+                                            <tr>
+                                                <td>*注意</td>
+                                                <td>按編輯後會刪除該筆資料，要按加入資料才會回來</td>
+                                            </tr>
+                                            <tr>
+                                                <td><hr /></td>
+                                                <td><hr /></td>
+                                            </tr>
+                                    
                                             <tr>
                                                 <th>問題</th>
                                                 <td>

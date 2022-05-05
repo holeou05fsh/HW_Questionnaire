@@ -349,3 +349,8 @@ span ~ #tab > div:first-of-type,
 .people-answer {
     padding-left:60px;
 }
+
+
+#TextBox11 {
+    width:200px;
+}

@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -134,6 +135,13 @@ namespace Questionnaire
                 //方法一:先把SQL抓出來再跟現有的session結合，如果要存SQL就把他全刪掉再重新加入
                 //方法二:按加入後 再排序orcheckbox數字中加入"新"字做insert判斷
 
+                //btnjoin的message
+                if (this.Session["litmsgbtnjoin"] != null)
+                {
+                    this.Literal3.Text = this.Session["litmsgbtnjoin"].ToString();
+                    this.Session["litmsgbtnjoin"] = null;
+                }
+
                 //儲存訊息，因為重導向後litmsgSureT就重製了
                 if (this.Session["litmsgSureT"] != null)
                 {
@@ -161,7 +169,7 @@ namespace Questionnaire
                             this.DropDownList2.SelectedValue = "複選方塊";
                         else
                             this.DropDownList2.SelectedValue = "文字";
-                        if (sessiondata[5] == "True")
+                        if (sessiondata[5] == "1")
                             this.CheckBox1.Checked = true;
 
                         Session[editID] = null;
@@ -391,72 +399,79 @@ namespace Questionnaire
 
         protected void btnjoin_Click(object sender, EventArgs e)
         {
-            //----------------防呆判斷-----------------
-            bool joincheck = true;
-            //問題上限個
-            int sessioncount = 0;
-            foreach (string joinsession in _joinsessions)
+            string CheckID = Request.QueryString["ID"];
+            if (CheckID != null)
             {
-                if (this.Session[joinsession] != null)
-                    sessioncount += 1;
-            }
-            if (sessioncount == _joinsessions.Length)
-            {
-                this.Session["litmsgSureT"] = $"※  問題上限{_joinsessions.Length}個";
-                joincheck = false;
-            }
-
-            string qtitle = this.TextBox5.Text;
-            string qanswer = this.TextBox7.Text;
-            if (string.IsNullOrEmpty(qtitle) || string.IsNullOrEmpty(qanswer))
-            {
-                this.Session["litmsgSureT"] = "※  欄位不能空白";
-                joincheck = false;
-            }
-
-            if (qtitle.Contains(' ') || qanswer.Contains(' '))
-            {
-                this.Session["litmsgSureT"] = "※  欄位內不能含有空白符號";
-                joincheck = false;
-            }
-
-            if (joincheck)
-            {
-                //----------------重新排序Session ID-----------------
-                int newID = SortNewJoinSessionID();
-
-                //----------------按加入後把值放入Session中-----------------
-                string TheMarkIsisNew = "100";
-                string QuestionnaireID = Request.QueryString["ID"];
-                string title = this.TextBox5.Text.Trim();
-                string answer = this.TextBox7.Text.Trim();
-                string qtypeSelected = this.DropDownList2.SelectedValue;
-                string requiredChecked = this.CheckBox1.Checked.ToString();
-                string qtype = "3";
-                if (qtypeSelected == "單選方塊")
-                    qtype = "1";
-                else if (qtypeSelected == "複選方塊")
-                    qtype = "2";
-                string required = "0";
-                if (requiredChecked == "True")
-                    required = "1";
-
-                List<string> sessionquestion = new List<string>(){
-               QuestionnaireID, title, answer, qtype, required, TheMarkIsisNew
-            };
-
-                for (int i = 0; i < _joinsessions.Length; i++)
+                //----------------防呆判斷-----------------
+                bool joincheck = true;
+                //問題上限個
+                int sessioncount = 0;
+                foreach (string joinsession in _joinsessions)
                 {
-                    if (this.Session[_joinsessions[i]] == null)
+                    if (this.Session[joinsession] != null)
+                        sessioncount += 1;
+                }
+                if (sessioncount == _joinsessions.Length)
+                {
+                    this.Session["litmsgSureT"] = $"※  問題上限{_joinsessions.Length}個";
+                    joincheck = false;
+                }
+
+                string qtitle = this.TextBox5.Text;
+                string qanswer = this.TextBox7.Text;
+                if (string.IsNullOrEmpty(qtitle) || string.IsNullOrEmpty(qanswer))
+                {
+                    this.Session["litmsgSureT"] = "※  欄位不能空白";
+                    joincheck = false;
+                }
+
+                if (qtitle.Contains(' ') || qanswer.Contains(' '))
+                {
+                    this.Session["litmsgSureT"] = "※  欄位內不能含有空白符號";
+                    joincheck = false;
+                }
+
+                if (joincheck)
+                {
+                    //----------------重新排序Session ID-----------------
+                    int newID = SortNewJoinSessionID();
+
+                    //----------------按加入後把值放入Session中-----------------
+                    string TheMarkIsisNew = "100";
+                    string QuestionnaireID = Request.QueryString["ID"];
+                    string title = this.TextBox5.Text.Trim();
+                    string answer = this.TextBox7.Text.Trim();
+                    string qtypeSelected = this.DropDownList2.SelectedValue;
+                    string requiredChecked = this.CheckBox1.Checked.ToString();
+                    string qtype = "3";
+                    if (qtypeSelected == "單選方塊")
+                        qtype = "1";
+                    else if (qtypeSelected == "複選方塊")
+                        qtype = "2";
+                    string required = "0";
+                    if (requiredChecked == "True")
+                        required = "1";
+
+                    List<string> sessionquestion = new List<string>(){
+                        QuestionnaireID, title, answer, qtype, required, TheMarkIsisNew
+                    };
+
+                    for (int i = 0; i < _joinsessions.Length; i++)
                     {
-                        newID += 1;
-                        int NewJoinID = newID;
-                        sessionquestion.Insert(0, NewJoinID.ToString());
-                        this.Session[_joinsessions[i]] = String.Join(" ", sessionquestion);
-                        break;
+                        if (this.Session[_joinsessions[i]] == null)
+                        {
+                            newID += 1;
+                            int NewJoinID = newID;
+                            sessionquestion.Insert(0, NewJoinID.ToString());
+                            this.Session[_joinsessions[i]] = String.Join(" ", sessionquestion);
+                            break;
+                        }
                     }
                 }
             }
+            else
+                this.Session["litmsgbtnjoin"] = "請先新增問卷(問卷要按送出)";
+
 
             Response.Redirect(Request.RawUrl + "#tab-2");
         }
@@ -1049,14 +1064,14 @@ namespace Questionnaire
             if (QSID != null && QSID != 0)
             {
                 List<AnswerData> infos = _qtmgr.GetBackPersonalallinfo((int)QSID);
-
-                string FilePath = @"D:\OneDrive\文件\GitHubFile\Program_Practice\C#\Questionnaire\Questionnaire\info.csv";
+                string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                string FilePath = desktop + "\\問卷infos.csv";
                 if (this.TextBox11.Text != "")
                     FilePath = this.TextBox11.Text;
 
                 try
                 {
-                    using (var file = new StreamWriter(FilePath))
+                    using (var file = new StreamWriter(FilePath, true, Encoding.Default))
                     {
                         foreach (AnswerData info in infos)
                         {
@@ -1083,6 +1098,7 @@ namespace Questionnaire
                 }
                 catch
                 {
+                    throw;
                     this.Session["tag3"] = "儲存路徑不正確";
                 }
 

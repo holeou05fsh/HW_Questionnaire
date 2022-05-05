@@ -218,6 +218,8 @@ namespace Questionnaire
                 }
             }
 
+            Session.Abandon();
+
             string qsID = Request.QueryString["ID"];
             Response.Redirect("/fontinput.aspx?ID=" + qsID + "&page=3");
         }
@@ -521,7 +523,7 @@ namespace Questionnaire
 
                     if (answercount != null)  //19~22:1
                     {
-                        string ratio = ((100 / totalcount) * Convert.ToInt32(answerdataplus.S_Count) + 1).ToString() + "%";
+                        string ratio = (Math.Round(Math.Round((decimal)100 / totalcount, 2) * Convert.ToDecimal(answerdataplus.S_Count))).ToString() + "%";
                         answerdataplus.S_Rate = ratio;
                     }
                     else

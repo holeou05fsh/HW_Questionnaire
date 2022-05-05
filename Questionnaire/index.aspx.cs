@@ -50,6 +50,7 @@ namespace Questionnaire
                 string[] backpath = path.Split('/');
                 if (backpath.Length > 2 && backpath[2] == "backindex")
                 {
+                    this.Session.Abandon();
                     this.PlaceHolder1.Visible = false;
                     this.PlaceHolder2.Visible = true;
                     this.lblindextitle.Text = "後台 - 問卷管理";
@@ -147,6 +148,8 @@ namespace Questionnaire
 
                 this.Response.Redirect(url);
             }
+            else
+                this.Label1.Text = "欄位空白或錯誤，請檢察";
 
         }
 
@@ -221,5 +224,6 @@ namespace Questionnaire
                 Response.Redirect(Request.RawUrl);
             }
         }
+
     }
 }

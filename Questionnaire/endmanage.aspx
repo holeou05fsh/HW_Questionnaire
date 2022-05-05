@@ -128,6 +128,9 @@
                                         <td>
                                             <asp:Button ID="btnjoin" runat="server" Text="加入" OnClick="btnjoin_Click" />
                                         </td>
+                                        <td>
+                                            <asp:Literal ID="Literal3" runat="server"></asp:Literal>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -173,7 +176,7 @@
                             <asp:PlaceHolder ID="PlaceHolder1" runat="server">
                                 <asp:Button ID="inputCSV" runat="server" Text="匯出" OnClick="inputCSV_Click" />
                                 &nbsp&nbsp&nbsp&nbsp&nbsp
-                                <asp:TextBox ID="TextBox11" runat="server" placeholder="請輸入儲存路徑"></asp:TextBox>
+                                <asp:TextBox ID="TextBox11" runat="server" placeholder="輸入路徑D:\info.csv (預設桌面)"></asp:TextBox>
                                 <asp:Literal ID="Literal2" runat="server"></asp:Literal>
                                 <table class="questionshow">
                                     <tr>
