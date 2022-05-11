@@ -139,7 +139,7 @@ namespace Questionnaire
             string StartTime = this.txtStartTime.Text;
             string EndTime = this.txtEndTime.Text;
 
-            if (keyword != "" && StartTime != "" && EndTime != "")
+            if (StartTime != "" && EndTime != "") //keyword != "" && 
             {
                 string url = this.Request.Url.LocalPath +
                 "?keyword=" + keyword +
@@ -159,7 +159,7 @@ namespace Questionnaire
             string StartTime = this.txtStartTime1.Text;
             string EndTime = this.txtEndTime1.Text;
 
-            if (keyword != "" && StartTime != "" && EndTime != "")
+            if (StartTime != "" && EndTime != "") //keyword != "" && 
             {
                 string url = this.Request.Url.LocalPath +
                 "?keyword=" + keyword +
@@ -167,6 +167,10 @@ namespace Questionnaire
                 "&EndTime=" + EndTime;
 
                 this.Response.Redirect(url);
+            }
+            else
+            {
+                this.Label2.Text = "欄位空白或錯誤，請檢察";
             }
         }
 

@@ -21,7 +21,9 @@ namespace Questionnaire.Managers
                 skip = 0;
 
             string whereConition = string.Empty;
-            if (!string.IsNullOrEmpty(keyword) && !string.IsNullOrEmpty(StartTime) && !string.IsNullOrEmpty(EndTime))
+
+
+            if (!string.IsNullOrEmpty(StartTime) && !string.IsNullOrEmpty(EndTime))
                 whereConition = @" AND Title LIKE '%'+@Keyword+'%' 
                                    AND StartTime >= @StartTime 
                                    AND EndTime <= @EndTime
@@ -73,6 +75,12 @@ namespace Questionnaire.Managers
                             command.Parameters.AddWithValue("@StartTime", StartTime);
                             command.Parameters.AddWithValue("@EndTime", EndTime);
                         }
+                        else if (string.IsNullOrEmpty(keyword) && !string.IsNullOrEmpty(StartTime) && !string.IsNullOrEmpty(EndTime))
+                        {
+                            command.Parameters.AddWithValue("@keyword", "");
+                            command.Parameters.AddWithValue("@StartTime", StartTime);
+                            command.Parameters.AddWithValue("@EndTime", EndTime);
+                        }
 
                         connection.Open();
                         SqlDataReader reader = command.ExecuteReader();
@@ -107,6 +115,12 @@ namespace Questionnaire.Managers
                             command.Parameters.AddWithValue("@StartTime", StartTime);
                             command.Parameters.AddWithValue("@EndTime", EndTime);
                         }
+                        else if (string.IsNullOrEmpty(keyword) && !string.IsNullOrEmpty(StartTime) && !string.IsNullOrEmpty(EndTime))
+                        {
+                            command.Parameters.AddWithValue("@keyword", "");
+                            command.Parameters.AddWithValue("@StartTime", StartTime);
+                            command.Parameters.AddWithValue("@EndTime", EndTime);
+                        }
                         totalRows = (int)command.ExecuteScalar();
 
                         return ChapterDatas;
@@ -128,7 +142,7 @@ namespace Questionnaire.Managers
             string whereConition = string.Empty;
             string AND = string.Empty;
             string WHERE = string.Empty;
-            if (!string.IsNullOrEmpty(keyword) && !string.IsNullOrEmpty(StartTime) && !string.IsNullOrEmpty(EndTime))
+            if (!string.IsNullOrEmpty(StartTime) && !string.IsNullOrEmpty(EndTime))
             {
                 whereConition = @" Title LIKE '%'+@Keyword+'%' 
                                    AND StartTime >= @StartTime 
@@ -183,6 +197,12 @@ namespace Questionnaire.Managers
                             command.Parameters.AddWithValue("@StartTime", StartTime);
                             command.Parameters.AddWithValue("@EndTime", EndTime);
                         }
+                        else if (string.IsNullOrEmpty(keyword) && !string.IsNullOrEmpty(StartTime) && !string.IsNullOrEmpty(EndTime))
+                        {
+                            command.Parameters.AddWithValue("@keyword", "");
+                            command.Parameters.AddWithValue("@StartTime", StartTime);
+                            command.Parameters.AddWithValue("@EndTime", EndTime);
+                        }
 
                         connection.Open();
                         SqlDataReader reader = command.ExecuteReader();
@@ -214,6 +234,12 @@ namespace Questionnaire.Managers
                         if (!string.IsNullOrEmpty(keyword) && !string.IsNullOrEmpty(StartTime) && !string.IsNullOrEmpty(EndTime))
                         {
                             command.Parameters.AddWithValue("@keyword", keyword);
+                            command.Parameters.AddWithValue("@StartTime", StartTime);
+                            command.Parameters.AddWithValue("@EndTime", EndTime);
+                        }
+                        else if (string.IsNullOrEmpty(keyword) && !string.IsNullOrEmpty(StartTime) && !string.IsNullOrEmpty(EndTime))
+                        {
+                            command.Parameters.AddWithValue("@keyword", "");
                             command.Parameters.AddWithValue("@StartTime", StartTime);
                             command.Parameters.AddWithValue("@EndTime", EndTime);
                         }

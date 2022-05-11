@@ -45,8 +45,7 @@
                                 <asp:Button CssClass="TextBox3" ID="btnSearch" runat="server" Text="搜尋" OnClick="btnSearch_Click" />
                             </td>
                             <td>
-                                <asp:Literal ID="Literal2" runat="server"></asp:Literal>
-                                <asp:Label cssclass="msgseach" ID="Label1" runat="server"></asp:Label>
+                                <asp:Label CssClass="msgseach" ID="Label1" runat="server"></asp:Label>
                             </td>
                         </tr>
                     </table>
@@ -114,6 +113,9 @@
                                             <asp:TextBox CssClass="TextBox3" ID="txtEndTime1" runat="server" TextMode="Date"></asp:TextBox></td>
                                         <td>
                                             <asp:Button CssClass="TextBox3" ID="btnSearch1" runat="server" Text="搜尋" OnClick="btnSearch1_Click" /></td>
+                                        <td>
+                                            <asp:Label CssClass="msgseach" ID="Label2" runat="server"></asp:Label>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -179,13 +181,18 @@
                                         <table>
                                             <tr>
                                                 <td>*注意</td>
-                                                <td>按編輯後會刪除該筆資料，要按加入資料才會回來<br />(因為沒有設計送出按鈕，所以直接刪除該資料而不是session)</td>
+                                                <td>按編輯後會刪除該筆資料，要按加入資料才會回來<br />
+                                                    (因為沒有設計送出按鈕，所以直接刪除該資料而不是session)</td>
                                             </tr>
                                             <tr>
-                                                <td><hr /></td>
-                                                <td><hr /></td>
+                                                <td>
+                                                    <hr />
+                                                </td>
+                                                <td>
+                                                    <hr />
+                                                </td>
                                             </tr>
-                                    
+
                                             <tr>
                                                 <th>問題</th>
                                                 <td>
@@ -196,7 +203,7 @@
                                                         <asp:ListItem>複選方塊</asp:ListItem>
                                                         <asp:ListItem>文字</asp:ListItem>
                                                     </asp:DropDownList>
-                                                     &nbsp;&nbsp;
+                                                    &nbsp;&nbsp;
                                                     <asp:CheckBox ID="CheckBox1" runat="server" Text="必填" />
                                                 </td>
                                             </tr>
@@ -208,13 +215,13 @@
                                                 </td>
                                                 <td>
                                                     <asp:Button ID="btnjoin" runat="server" Text="加入" OnClick="btnjoin_Click" />
-                                                    
+
                                                 </td>
                                             </tr>
                                         </table>
                                     </div>
                                     <div class="questioninfo">
-                                        <asp:Button ID="btndelete1" runat="server" Text="🗑" OnClick="btndelete1_Click"/> 
+                                        <asp:Button ID="btndelete1" runat="server" Text="🗑" OnClick="btndelete1_Click" />
                                         <table class="questionshow">
                                             <tr>
                                                 <th></th>
@@ -224,23 +231,23 @@
                                                 <th>必填</th>
                                                 <th></th>
                                             </tr>
-                                             <asp:Repeater ID="Repeater3" runat="server" OnItemCommand="Repeater3_ItemCommand">
-                                        <ItemTemplate>
-                                            <tr>
-                                                <td>
-                                                    <input type="checkbox" name="questionlistcheck" value='<%# Eval("ID") %>' />
-                                                </td>
-                                                <td><%# Container.ItemIndex +1%></td>
-                                                <td><%# Eval("Title") %></td>
-                                                <td><%# Convert.ToInt32(Eval("QType"))==1?"單選方塊":Convert.ToInt32(Eval("QType"))==2?"複選方塊":"文字" %></td>
-                                                <td>
-                                                    <asp:CheckBox ID="CheckBox3" runat="server" Checked='<%# (bool)Eval("required") %>' onclick="javascript: return false;" />
-                                                </td>
-                                                <td>
-                                                    <asp:Button ID="btnedit" runat="server" Text="編輯" CommandName="questionedit" CommandArgument='<%#Eval("ID")+","+Eval("Title")+","+Eval("Answer")+","+Eval("QType")+","+Eval("Required") %>' /></td>
-                                            </tr>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
+                                            <asp:Repeater ID="Repeater3" runat="server" OnItemCommand="Repeater3_ItemCommand">
+                                                <ItemTemplate>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="checkbox" name="questionlistcheck" value='<%# Eval("ID") %>' />
+                                                        </td>
+                                                        <td><%# Container.ItemIndex +1%></td>
+                                                        <td><%# Eval("Title") %></td>
+                                                        <td><%# Convert.ToInt32(Eval("QType"))==1?"單選方塊":Convert.ToInt32(Eval("QType"))==2?"複選方塊":"文字" %></td>
+                                                        <td>
+                                                            <asp:CheckBox ID="CheckBox3" runat="server" Checked='<%# (bool)Eval("required") %>' onclick="javascript: return false;" />
+                                                        </td>
+                                                        <td>
+                                                            <asp:Button ID="btnedit" runat="server" Text="編輯" CommandName="questionedit" CommandArgument='<%#Eval("ID")+","+Eval("Title")+","+Eval("Answer")+","+Eval("QType")+","+Eval("Required") %>' /></td>
+                                                    </tr>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
                                         </table>
                                     </div>
                                     <asp:Literal ID="litmsgSureT" runat="server"></asp:Literal>
