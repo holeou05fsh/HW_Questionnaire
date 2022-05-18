@@ -179,7 +179,7 @@
 
                                     <div class="questioninput">
                                         <table>
-                                            <tr>
+                                            <%--<tr>
                                                 <td>*注意</td>
                                                 <td>按編輯後會刪除該筆資料，要按加入資料才會回來<br />
                                                     (因為沒有設計送出按鈕，所以直接刪除該資料而不是session)</td>
@@ -191,7 +191,7 @@
                                                 <td>
                                                     <hr />
                                                 </td>
-                                            </tr>
+                                            </tr>--%>
 
                                             <tr>
                                                 <th>問題</th>

@@ -183,7 +183,7 @@ namespace Questionnaire
 
                 this.Session["questionedit"] = e.CommandArgument.ToString();
 
-                _famgr.delQuestion(ID);
+                //_famgr.delQuestion(ID);
 
                 Response.Redirect(Request.RawUrl);
 
